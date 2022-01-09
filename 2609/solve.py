@@ -1,6 +1,6 @@
 A = [ int(x) for x in input().split(' ')]
 
-startValue = max(A[0], A[1])/2
+startValue = max(A[0], A[1])
 
 while 1:
     if A[0] % startValue == 0 and A[1] % startValue == 0:
