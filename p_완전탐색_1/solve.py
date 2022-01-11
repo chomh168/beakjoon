@@ -19,7 +19,6 @@ def solve(param):
     
     compare = [one,two,thr]
     compare.sort(key=lambda x:(-x[1],x[0]))
-    # print(compare)
 
     result = []
     max = compare[0][1]
@@ -33,9 +32,3 @@ def solve(param):
 def solution(answers):
     answer = []
     return solve(answers)
-
-# answers = [1,2,3,4,5] #	[1]
-# # answers = [1,3,2,4,2] #	[1,2,3]
-answers = [3, 3, 2, 1, 5] # [3]
-
-print(solution(answers))
