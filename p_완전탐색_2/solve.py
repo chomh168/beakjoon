@@ -1,3 +1,5 @@
+from itertools import permutations
+
 def isPrimeNum(value):
     if value == 1 or value == 0:
         return False
@@ -31,24 +33,48 @@ def countNumber(numbers):
 # 0~9, len 1~7
 # numbers = "17"	#3
 # numbers = "1276543"	#2
-# numbers = '232'
+# numbers = '011'
 
+# def solution(numbers):
+#     answer = 0
+#     length = len(numbers)
+#     numbers = list(numbers)
+#     numbers.sort()
+#     counts = countNumber(numbers)
+
+#     result = ['0']
+#     count = 0
+#     check = makeDigit(result, counts, length, '0')
+#     for each in check:
+#         if isPrimeNum(int(each)):
+#             count+=1
+#     answer = count
+#     return answer
+    
+    # print(data)
+    # check = [ int(x) for x in check ]
+    # check = set(check)
+    # for each in check:
+    #     if isPrimeNum(int(each)):
+    #         count+=1
+    # answer = count
+    # return answer
+
+# 풀이 확인
 def solution(numbers):
     answer = 0
     length = len(numbers)
     numbers = list(numbers)
     numbers.sort()
-    counts = countNumber(numbers)
 
-    result = ['0']
-    count = 0
-    check = makeDigit(result, counts, length, '0')
-    check = [ int(x) for x in check ]
-    check = set(check)
-    for each in check:
+    data = []
+    for i in range(1, length+1):
+        data += list(map(''.join,permutations(numbers,i)))
+    data = [ int(x) for x in data ]
+    data = set(data)
+    for each in data:
         if isPrimeNum(int(each)):
-            count+=1
-    answer = count
+            answer+=1
     return answer
 
 # print(solution(numbers))
