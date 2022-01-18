@@ -1,6 +1,3 @@
-participant = ["leo", "kiki", "eden"]	
-completion = ["eden", "kiki"]
-
 def solution(participant, completion):
     p = check(participant)
     c = check(completion)
@@ -20,5 +17,3 @@ def check(checkList):
         else:
             result[each] = 1
     return result
-
-print(solution(participant, completion))
