@@ -1,3 +1,6 @@
+from sys import stdin
+input = stdin.readline
+
 def checkQueen(queenMap, row):
     length = len(queenMap)
     count = 0
