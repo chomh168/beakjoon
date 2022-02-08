@@ -1,43 +1,35 @@
 s = "abcdcba"	
 #7
-# s = "abacde"	
+s = "abacde"	
 #3
 # s = "abefbb"
+s = "abbb"
 
-import re
+from sys import stdin
+input = stdin.readline
 
 def solve(s):
-    leng = 0
-    while len(s) != 0:
-        checkList = []
-        checkChar = s[0]
-        
+    N = len(s)
+    dp = [ [0] * N for _ in range(N)]
 
-        for m in re.finditer(checkChar, s):
-            checkList.append(m.start()+1)
+    max = 1
+    for x in range(N):
+        dp[x][x] = 1
 
-        print(checkList)
-        checkList.sort(reverse=True)
-        result = True
-        check = 0
-        for check in checkList:
-            if check == 1:
-                check = 1
-                break
-            for each in range(1, check//2+1):
-                if check == 6:
-                    print(s[check - each], s[each], check - each, each)
-                if s[check - each] != s[each]:
-                    result = False
-                    break
-            if result == True:
-                break
-        if leng < check and result == True:
-            leng = check
-        s = s[1:]
-    return leng + 1
-    
-    
+    for x in range(N-1):
+        if s[x] == s[x + 1]:
+            dp[x][x+1] = 1
+            max = 2
+
+    for y in range(2, N):
+        for x in range(0, N-y):
+            if s[x] == s[x + y] and dp[x + 1][x + y - 1] == 1:
+                dp[x][x + y] = 1
+                if y+1 > max:
+                    max = y+1
+
+    return max
+
 def solution(s):
     answer = solve(s)
     return answer
