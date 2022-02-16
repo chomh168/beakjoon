@@ -9,9 +9,9 @@ n, lost, reserve = (
     6,[6,2,4],[1,5,3] 
 )
 
-n, lost, reserve = (
-    3,	[3],	[1]
-)
+# n, lost, reserve = (
+#     3,	[3],	[1]
+# )
 # 5	[2, 4]	[1, 3, 5]	5
 # 5	[2, 4]	[3]	4
 # 3	[3]	[1]	2
@@ -19,27 +19,16 @@ n, lost, reserve = (
 
 result = []
 def solve(n, lost, reserve):
-    if len(lost) == 0 or len(reserve) == 0:
-        global result
-        result.append(n - len(lost))
-        return
-    each = reserve.pop()
-    
-    check = False
-    if lost.count(each - 1) == 1:
-        rlost = lost.copy()
-        rlost.remove(each-1)
-        solve(n, rlost, reserve)
-        check = True
-    if lost.count(each + 1) == 1:
-        rlost = lost.copy()
-        rlost.remove(each+1)
-        solve(n, rlost, reserve)
-        check = True
-    
-    if check == False:
-        solve(n, lost, reserve)
-    
+    removeCount = 0
+    for each in lost:
+        if each - 1 in reserve:
+            removeCount += 1
+            reserve.remove(each-1)
+        elif each + 1 in reserve:
+            removeCount += 1
+            reserve.remove(each+1)
+
+    return len(lost) - removeCount
 
 def solution(n, lost, reserve):
     lost.sort()
@@ -53,8 +42,7 @@ def solution(n, lost, reserve):
             newReserve.remove(each)
             continue
         newLost.append(each)
-    result.append(n-len(newLost))
-    solve(n, newLost, newReserve)
-    return max(result)
+    so = solve(n, newLost, newReserve)
+    return n - so
 
 print(solution(n, lost, reserve))
